@@ -10,10 +10,13 @@ fi
 
 BQ_DATASET="covid"
 BQ_TABLE="csv_imports"
-LOCATION="europe-west6"
+LOCATION="europe-west6" # Zurich
 
 gsutil mb -l "$LOCATION" gs://$MYBUCKET/ # if needed
 gsutil cp COVID-19/csse_covid_19_data/csse_covid_19_daily_reports/03-24-2020.csv  gs://$MYBUCKET/all-covid-data.csv
+
+# TODO(ricc): import ALL CSVs at once into a new BQ dataset which gets deleted and repopulated every day with ONE day more.
+# maybe do a TABLE per month?
 
 # without autodetect use \    ./covid-schema.json
 bq --location="$LOCATION" mk --dataset \
