@@ -1,5 +1,12 @@
 -- BQ query to get Italy-only pertinent data from table.
-SELECT Confirmed, Deaths, Recovered, Active, Last_Update
+SELECT 
+    Last_Update, 
+    Country_Region , 
+    Confirmed, 
+    Deaths, 
+    Recovered, 
+    Active,
+    Deaths + Recovered + Active as ActRecDeaSum
 FROM [ric-cccwiki:covid.csv_imports] 
 WHERE Country_Region = "Italy"
 LIMIT 1000;

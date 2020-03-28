@@ -7,9 +7,9 @@ refresh: install
 	cd COVID-19 ; git pull
 
 calculate-switzerland: install
-	./calculate.sh Switzerland |grep -v Indiana
+	./cases-by-nation.sh Switzerland
 calculate-italy: install
-	./calculate.sh Italy
+	./cases-by-nation.sh Italy
 
 # download latest repo
 COVID-19:
