@@ -7,6 +7,7 @@ SELECT
     Recovered, 
     Active,
     Deaths + Recovered + Active as ActRecDeaSum
+-- PLease change "ric-cccwiki" to your project_id - sorry about that
 FROM [ric-cccwiki:covid.csv_imports] 
 WHERE Country_Region = "Italy"
 LIMIT 1000;
