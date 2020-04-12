@@ -1,5 +1,8 @@
 
 
+help:
+	cat Makefile
+
 install: COVID-19
 
 refresh: install
@@ -23,6 +26,6 @@ env.sh:
 	cp env.sh.dist env.sh
 	@echo MAke sure to change data in env.sh or it wont work!
 
-load-data-onto-bigquery:  # gcpconfig
+load-data-onto-bigquery:  gcpconfig
 	# make refresh # if u want..
-	./load-csv-to-bq.sh
+	bash load-csv-to-bq.sh
