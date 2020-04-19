@@ -1,7 +1,7 @@
 
 #!/bin/bash
 
-VERSION="1_1"
+VERSION="1_2"
 
 if [ ! -f env.sh ]; then
     echo "env.sh not found! Copy env.sh.dist into env.sh and edit away"
@@ -41,10 +41,15 @@ csse_covid19_daily_reports() {
     DAILY_REPORTS_SCHEMA="FIPS:INTEGER,Admin2:STRING,Province_State:STRING,Country_Region:STRING,Last_Update:STRING,Lat:FLOAT,Long_:FLOAT,Confirmed:INT64,Deaths:INT64,Recovered:INT64,Active:INT64,Combined_Keyp:STRING"
 
     #ls $DIR/*csv | grep 04-04-2020 |      xargs  --max-args=1 echo bq load --format=csv  --autodetect "$BQ_DATASET.$BQ_TABLE" "$SCHEMA"
-    FILE=COVID-19/csse_covid_19_data/csse_covid_19_daily_reports/04-04-2020.csv
-    head -3 "$FILE"
-    tail -3 "$FILE"
-    bq load --format=csv --skip_leading_rows=1 "$BQ_DATASET.$BQ_TABLE" "$FILE" "$DAILY_REPORTS_SCHEMA"
+    #FILE=COVID-19/csse_covid_19_data/csse_covid_19_daily_reports/04-04-2020.csv
+    #head -3 "$FILE"
+    #tail -3 "$FILE"
+    #echo bq load --format=csv --skip_leading_rows=1 "$BQ_DATASET.$BQ_TABLE" "$FILE" "$DAILY_REPORTS_SCHEMA"
+    ls $DIR/*csv | 
+        grep 04-2020 |      
+#        xargs  echo bq load --format=csv  --autodetect "$BQ_DATASET.$BQ_TABLE" "$SCHEMA"
+         xargs --max-args=1 -I {} sh -c "ok bq load --format=csv --skip_leading_rows=1 '$BQ_DATASET.$BQ_TABLE' {} '$DAILY_REPORTS_SCHEMA'"
+
 }
 
 # TODO(ricc): import ALL CSVs at once into a new BQ dataset which gets deleted and repopulated every day with ONE day more.
