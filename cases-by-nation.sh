@@ -4,23 +4,28 @@ COUNTRY="${1:-Italy}"
 
 function filtrami() {
     grep -v Indiana |   # c'e' una svizzera in indiana.. :)
-        grep --color "2020-03-..........." 
+        grep --color "2020-04-..........." 
+}
+function commas_to_tabs() {
+            sed 's/ /_/g' |
+            sed 's/_..:..:..//g' | # remove time from date
+            sed 's/,/   /g'
 }
 
 function show_headers() {
-    echo -en "Headers vecchio stile: "
-    head -1 COVID-19/csse_covid_19_data/csse_covid_19_daily_reports/03-20-2020.csv
-    echo -en "Headers nuovo stile:   "
-    head -1 COVID-19/csse_covid_19_data/csse_covid_19_daily_reports/03-25-2020.csv
+    #echo -en "Headers vecchio stile: "
+    #head -1 COVID-19/csse_covid_19_data/csse_covid_19_daily_reports/03-20-2020.csv
+    #echo -en "Headers nuovo stile:   "
+    head -1 COVID-19/csse_covid_19_data/csse_covid_19_daily_reports/04-01-2020.csv
 }
 
-show_headers
 
-echo "+ ArchivedData/Archived Daily reports ($COUNTRY)"
-grep --no-filename "$COUNTRY" COVID-19/archived_data/archived_daily_case_updates/*csv | filtrami
+#echo "+ ArchivedData/Archived Daily reports ($COUNTRY)"
+#grep --no-filename "$COUNTRY" COVID-19/archived_data/archived_daily_case_updates/*csv | filtrami
 
-echo "+ CSSE/Daily reports: $COUNTRY"
-grep --no-filename -i "$COUNTRY" COVID-19/csse_covid_19_data/csse_covid_19_daily_reports/*csv | filtrami
+echo "# CSSE/Daily reports: $COUNTRY"
+show_headers | commas_to_tabs
+grep --no-filename -i "$COUNTRY" COVID-19/csse_covid_19_data/csse_covid_19_daily_reports/*csv | filtrami | commas_to_tabs
 
 
 #grep -i "$COUNTRY" 02-2*-2020.csv | filtrami

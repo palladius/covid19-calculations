@@ -2,6 +2,8 @@
 
 install: COVID-19
 
+show-latest-switzerland: refresh calculate-switzerland
+	
 refresh: install
 	@echo Force refresh of repo
 	cd COVID-19 ; git pull ; cd ..
@@ -26,3 +28,7 @@ env.sh:
 load-data-onto-bigquery:  # gcpconfig
 	# make refresh # if u want..
 	./load-csv-to-bq.sh
+
+visualize-switzerland: install
+	./cases-by-nation.sh Switzerland | ./termeter-covid-data.sh
+	
