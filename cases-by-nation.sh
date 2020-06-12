@@ -4,12 +4,16 @@ COUNTRY="${1:-Italy}"
 
 function filtrami() {
     grep -v Indiana |   # c'e' una svizzera in indiana.. :)
-        grep --color "2020-04-..........." 
+        grep --color "2020-0[45678]-..........." 
 }
+
 function commas_to_tabs() {
             sed 's/ /_/g' |
             sed 's/_..:..:..//g' | # remove time from date
             sed 's/,/   /g'
+#        grep --color "2020-0.-..........." |
+#        sed -e 's/46.8182,8.2275/SWISS_GEO/g' |
+#        sed -e 's/41.87194,12.56738/ITALY_GEO/g'
 }
 
 function show_headers() {
